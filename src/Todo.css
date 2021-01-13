@@ -1,0 +1,8 @@
+li {
+    display: list-item;
+    text-align: -webkit-match-parent;
+}
+
+button {
+    font-size: 7px;
+}
