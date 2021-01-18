@@ -1,36 +1,30 @@
 import React, { Component } from 'react'
 import TodoForm from '../components/TodoForm'
 import TodoList from './TodoList'
+import { connect } from 'react-redux'
+import { addTodo, removeTodo } from '../actions/TodoActions'
 
-export default class FormContainer extends Component {
-    constructor() {
-        super()
-
-        this.state = {
-            todos: []
-        }
-    }
-
+class TodoContainer extends Component {
     addTodo = newTodo => {
-        this.setState(state => {
-            const todos = [...state.todos, newTodo]
-            return {todos}
-        })
+        this.props.dispatch(addTodo(newTodo))
     }
 
     deleteTodo = id => {
-        this.setState(state => {
-            const todos = state.todos.filter(item => item.id !== id)
-            return {todos}
-        })
+        this.props.dispatch(removeTodo(id))
     }
 
     render() {
         return (
             <div>
                 <TodoForm addTodo={this.addTodo} />
-                <TodoList todos={this.state.todos} deleteTodo={this.deleteTodo} />
+                <TodoList todos={this.props.todos} deleteTodo={this.deleteTodo} />
             </div>
         )
     }
 }
+
+const mapStateToProps = state => {
+    return { todos: state.todos }
+}
+
+export default connect(mapStateToProps)(TodoContainer)
