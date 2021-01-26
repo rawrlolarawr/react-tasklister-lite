@@ -18,7 +18,7 @@ export default class FormContainer extends Component {
             return ({
                 value: '',
                 todo: {
-                    id: uuid(),
+                    key: uuid(),
                     content: this.state.value
                 }
             })

@@ -3,7 +3,7 @@ const TodoReducer = (state = { todos: [] }, action) => {
         case 'ADD_TODO':
             return { ...state, todos: [...state.todos, action.payload] }
         case 'REMOVE_TODO':
-            return { ...state, todos: state.todos.filter(todo => todo.id !== action.payload)}
+            return { ...state, todos: state.todos.filter(todo => todo.key !== action.payload)}
         default:
             return state
     }

@@ -8,7 +8,7 @@ const TodoList = props => {
             <h3>{props.title}</h3>
             <FormContainer addTodo={props.addTodo}/>
             <ol>
-                {props.todos.map((todo) => <Todo key={todo.id} id={todo.id} content={todo.content} handleSubmit={props.handleSubmit}/>)}
+                {props.todos.map(todo => <Todo key={todo.key} id={todo.key} content={todo.content} handleSubmit={props.handleSubmit}/>)}
             </ol>
         </div>
     )
