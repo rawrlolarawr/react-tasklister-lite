@@ -6,36 +6,28 @@ import { addTodo, removeTodo } from '../actions/TodoActions'
 
 class TodoContainer extends Component {
     addTodo = newTodo => {
+        fetch('http://localhost:3001/tasks', this.createConfigObj('POST', newTodo))
         this.props.dispatch(addTodo(newTodo))
-        const configObj = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(newTodo)
-        }
-
-        fetch('http://localhost:3001/tasks', configObj)
     }
 
-    deleteTodo = id => {
-        this.props.dispatch(removeTodo(id))
-        const todo = this.props.todos.find(td => td.key === id)
-        const configObj = {
-            method: 'DELETE',
+    deleteTodo = key => {
+        this.props.dispatch(removeTodo(key))
+        const todo = this.props.todos.find(td => td.key === key)
+        fetch('http://localhost:3001/tasks/' + key, this.createConfigObj('DELETE', todo))
+    }
+
+    createConfigObj = (method, body) => {
+        return {
+            method: method,
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(todo)
+            body: JSON.stringify(body)
         }
-
-        fetch('http://localhost:3001/tasks/' + todo.id, configObj)
     }
 
     renderTodos = todoObj => {
-        return todoObj.data.map(todo => {
-            return this.props.dispatch(addTodo(todo.attributes))
-        })
+        return todoObj.data.map(todo => this.props.dispatch(addTodo(todo.attributes)))
     }
 
     handleSubmit = (event, id) => {

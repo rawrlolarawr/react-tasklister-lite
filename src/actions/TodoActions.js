@@ -5,9 +5,9 @@ export const addTodo = todo => {
     }
 }
 
-export const removeTodo = id => {
+export const removeTodo = key => {
     return {
         type: 'REMOVE_TODO',
-        payload: id
+        payload: key
     }
 }
